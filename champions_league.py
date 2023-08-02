@@ -12,6 +12,10 @@ table_col = soup.find("table", class_="wikitable plainrowheaders sortable")
 
 title = table_col.find_all("th", scope="col")[0:8]
 
+for r in title:
+    for a in r.find_all("a"):
+        a.extract()
+
 titles = [i.text.strip() for i in title]
 
 df = pd.DataFrame(columns=titles)
@@ -28,4 +32,3 @@ for row in table_row[1:-4]:
         df.loc[len(df)] = title_row
 
 df.to_csv("UEFA Champions League.csv", index=False)
-
